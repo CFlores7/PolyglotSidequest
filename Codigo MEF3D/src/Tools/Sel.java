@@ -10,7 +10,7 @@ import static Tools.Math_Tools.*;
 public class Sel {
     private Sel(){};
 
-    //Muestra las Ks
+    //Muestra las Ks locales
     public static void showKs(ArrayList<Matrix> Ks){
         for (int i = 0; i < Ks.size() ; i++) {
             System.out.println("K del elemento"+(i+1));
@@ -20,7 +20,7 @@ public class Sel {
     }
 
 
-    //Muestra ls bs
+    //Muestra ls bs locales
     public static void showbs(ArrayList<Vector> bs){
         for (int i = 0; i < bs.size() ; i++) {
             System.out.println("b del elemento"+(i+1));
@@ -29,7 +29,7 @@ public class Sel {
         }
     }
 
-    //Crea el elemento local
+    //Calcula el determinante de una matriz dada
     public static float calculateLocalD(int ind, Mesh m){
         float D,a,b,c,d,e,f,g,h,i;
 
@@ -49,15 +49,16 @@ public class Sel {
         g=n4.getX()-n1.getX();
         h=n4.getY()-n1.getY();
         i=n4.getZ()-n1.getZ();
- //Se calcula el determinante de esta matriz utilizando
-    //la Regla de Sarrus.
+
+        //Se calcula el determinante de esta matriz utilizando
+        //la Regla de Sarrus.
         D = a*e*i+d*h*c+g*b*f-g*e*c-a*h*f-d*b*i;
 
         return D;
     }
 
 
-//Caluclando el volumen 
+//Calculando el volumen
 public static float  calculateLocalVolume(int ind, Mesh m){
          float V,a,b,c,d,e,f,g,h,i;
 
@@ -77,38 +78,15 @@ public static float  calculateLocalVolume(int ind, Mesh m){
         g=n4.getX()-n1.getX();
         h=n4.getY()-n1.getY();
         i=n4.getZ()-n1.getZ();
- //Se calcula el determinante de esta matriz utilizando
-    //la Regla de Sarrus.
+
+        //Se calcula el determinante de esta matriz utilizando
+        //la Regla de Sarrus.
         V = (1/6)*(a*e*i+d*h*c+g*b*f-g*e*c-a*h*f-d*b*i);
 
         return V;
 
 }
-
-    /*Calcula la magnitud de un vector.
-    public static float calculateMagnitude(float v1, float v2){
-        return (float) Math.sqrt(Math.pow(v1,2)+Math.pow(v2,2));
-    }
-
-    public static float calculateLocalArea(int i, Mesh m){
-        //Formula de Herón
-        float A,s,a,b,c;
-        Element e = m.getElement(i);
-        Node n1 = m.getNode(e.getNode1()-1);
-        Node n2 = m.getNode(e.getNode2()-1);
-        Node n3 = m.getNode(e.getNode3()-1);
-
-        a = calculateMagnitude(n2.getX()-n1.getX(),n2.getY()-n1.getY());
-        b = calculateMagnitude(n3.getX()-n2.getX(),n3.getY()-n2.getY());
-        c = calculateMagnitude(n3.getX()-n1.getX(),n3.getY()-n1.getY());
-        s = (a+b+c)/2.0f;
-
-        A = (float) Math.sqrt(s*(s-a)*(s-b)*(s-c));
-
-        return A;
-    }
-*/
-
+// Calcula el determinante de una matriz 2x2
  public static float ab_ij(float ai, float aj, float a1, float bi, float bj, float b1){
 
      return (ai - a1)*(bj - b1) - (aj - a1)*(bi - b1);
@@ -149,9 +127,9 @@ public static float  calculateLocalVolume(int ind, Mesh m){
         B.get(2).set(3, 0f);
     }
 
-    //Metodo que cera una matriz local K y lo alamcena en m
+    //Metodo que crea una matriz local K y lo almacena en la malla
     private static Matrix createLocalK(int element,Mesh m){
-        // K = (k*Ae/D^2)Bt*At*A*B := K_3x3
+
         float D,Ve,k = m.getParameter(Parameters.THERMAL_CONDUCTIVITY.ordinal());
         Matrix K=new Matrix(),A=new Matrix(),B=new Matrix(),Bt=new Matrix(),At=new Matrix();
 
@@ -170,6 +148,7 @@ public static float  calculateLocalVolume(int ind, Mesh m){
         return K;
     }
 
+    //Calculando el Jacobiano local
     public static float calculateLocalJ(int ind, Mesh m){
         float J,a,b,c,d,e,f,g,h,i;
 
@@ -190,12 +169,13 @@ public static float  calculateLocalVolume(int ind, Mesh m){
         h=n3.getY()-n1.getY();
         i=n4.getZ()-n1.getZ();
 
-    J = a*e*i+d*h*c+g*b*f-g*e*c-a*h*f-d*b*i;
+        //Ecuacion del Jacobiano
+        J = a*e*i+d*h*c+g*b*f-g*e*c-a*h*f-d*b*i;
 
         return J;
     }
 
-    //Metodo que crea el elemento local b y lo almacena en m
+    //Metodo que crea el elemento local b y lo almacena en la malla
     public static Vector createLocalb(int element,Mesh m){
         Vector b = new Vector();
 

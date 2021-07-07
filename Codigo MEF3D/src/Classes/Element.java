@@ -13,6 +13,7 @@ public class Element extends Item{
         return list;
     }
 
+    //Metodo para asignar el valor de las variables
     @Override
     public void setValues(int a,float b,float c,float d,int e,int f,int g, int h, float i) {
         id = a;

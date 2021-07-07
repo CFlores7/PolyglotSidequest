@@ -13,6 +13,7 @@ public class Condition extends Item{
         return list;
     }
 
+    //Metodo para asignacion de valores
     @Override
     public void setValues(int a,float b,float c,float d,int e,int f,int g, int h, float i) {
         node1 = e;

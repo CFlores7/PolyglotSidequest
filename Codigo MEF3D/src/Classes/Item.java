@@ -1,6 +1,7 @@
 package Classes;
 
 //Clase abstracta la cual establece la mayoria de parametros utilizados por el sistema
+//Plantilla de la cual se basan todos los objetos extraidos del .dat
 public abstract class Item {
 
     protected int id;

@@ -35,14 +35,21 @@ public class Main {
 
         //Se crean los sitemas locales y se muestran
         crearSistemasLocales(m, localKs, localbs);
-        //showKs(localKs); showbs(localbs);
+
+        //Funcion para mostrar K locales
+        showKs(localKs);
+        // Funcion para mostrar B locales
+        showbs(localbs);
         System.out.println("*******************************");
 
         //Las matrices K y b se llenan de 0 y posteriormente se realiza el ensamblaje
         zeroes(K, m.getSize(NODES.ordinal()));
         zeroes(b, m.getSize(NODES.ordinal()));
         ensamblaje(m, localKs, localbs, K, b);
-        //K.Show(); b.Show();
+        //Funcion para mostrar K global
+        K.Show();
+        //Funcion para mostrar B global
+        b.Show();
         System.out.println("*******************************");
 
         //Se aplica la condicion de Neumann
